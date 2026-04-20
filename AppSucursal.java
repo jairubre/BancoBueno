@@ -1,0 +1,267 @@
+package BancoCLiente;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
+public class AppSucursal {
+       static Scanner sc = new Scanner(System.in);
+    static List<CuentaBanco> cuentas = new ArrayList<CuentaBanco>();
+    static List<ClienteBanco> clientes = new ArrayList<ClienteBanco>();
+
+    public static void main(String[] args) {
+
+        /*
+         * CuentaCorriente c1 = new CuentaCorriente(1, new ClienteBnaco("null", "null",
+         * "null", 10, LocalDate.of(2001, 12, 11), "null", "null"));
+         * System.out.println(c1.toString());
+         * c1.ingresarDinero(100);
+         * System.out.println(c1.saldo);
+         * try {
+         * c1.retirarDinero(400);
+         * } catch (excepcionValidar e) {
+         * System.out.println(e);
+         * }
+         * System.out.println(c1.saldo);
+         * System.out.println("-----------------------------------");
+         * CuentaVivienda c2 = new CuentaVivienda(1, new ClienteBnaco("Jaime", "null",
+         * "null",
+         * 12, LocalDate.of(2001, 11, 1), "Mostoles", "Cura"));
+         * System.out.println(c2.toString());
+         * c2.ingresarDinero(100);
+         * System.out.println(c2.saldo);
+         * try {
+         * c2.retirarDinero(100);
+         * c2.retirarDinero(50);
+         * } catch (excepcionValidar e) {
+         * System.out.println(e);
+         * }
+         * System.out.println(c2.saldo);
+         * System.out.println(c2.movimientos);
+         */
+        MenuCrear();
+        System.out.println("************************************");
+        System.out.println(cuentas.size());
+        for (CuentaBanco c1 : cuentas) {
+            System.out.println("hola");
+            System.out.println(c1.toString());
+        }
+
+    }
+
+    public static void menu() {
+        System.out.println("Introduce una opcion");
+        System.out.println("Crear cliente");
+        System.out.println("Crear suscursal");
+        int opcion = 0;
+        switch (opcion) {
+            case 1:
+
+                break;
+            case 2:
+                MenuCrear();
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    public static String validarDni(String dni) throws ClienteExisteExcepcion {
+        for (ClienteBanco cliente : clientes) {
+            if (cliente.getDni().equals(dni)) {
+                throw new ClienteExisteExcepcion(cliente);
+            }
+        }
+        return dni;
+    }
+
+    public static void crearCliente() {
+        try {
+            System.out.println("Introduce dni");
+            String dni = sc.nextLine();
+            validarDni(dni);
+            System.out.println("Introduce nombre");
+            String nombre = sc.nextLine();
+            System.out.println("Introduce apellidos");
+            String apellidos = sc.nextLine();
+            sc.nextLine();
+            System.out.println("Introduce edad");
+            int edad = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Fecha de nacimiento");
+            System.out.println("Introduce dia");
+            int dia = sc.nextInt();
+            System.out.println("Introduce mes en numero");
+            int mes = sc.nextInt();
+            System.out.println("introduce años");
+            int ano = sc.nextInt();
+            sc.nextLine();
+            LocalDate fecha = LocalDate.of(ano, mes, dia);
+            System.out.println("Ciudad");
+            String ciudad = sc.nextLine();
+            System.out.println("Profesion");
+            String profesion = sc.nextLine();
+            ClienteBanco cl1 = new ClienteBanco(nombre, apellidos, dni, edad, fecha, ciudad, profesion);
+            clientes.add(cl1);
+        } catch (DateTimeException e) {
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public static void MenuCrear() {
+
+        int opcion = 0;
+        do {
+            System.out.println("Bienvenido a nuestro banco");
+            System.out.println("Dinos q tipo de cuenta te quieres abrir");
+            System.out.println("1.Cuenta Corriente");
+            System.out.println("2.Cuenta Vivienda");
+            System.out.println("3.Fondos de inversión");
+            System.out.println("4.Crear Cliente");
+            System.out.println("5.salir");
+            try {
+                opcion = sc.nextInt();
+                sc.nextLine();
+                tiposCenta(opcion);
+
+            } catch (InputMismatchException e) {
+                System.out.println("Has introducido un valor que no es válido");
+                System.out.println("Intentelo de nuevo");
+            }
+            sc.nextLine();
+
+        } while (opcion != 5);
+
+    }
+
+    public static void tiposCenta(int opcion) {
+
+        switch (opcion) {
+            case 1:
+                System.out.println("Vamos a crear una cuenta corriente");
+                try {
+                    System.out.println("Introduce nombre");
+                    String nombre = sc.nextLine();
+                    System.out.println("Introduce apellidos");
+                    String apellidos = sc.nextLine();
+                    System.out.println("Introduce dni");
+                    String dni = sc.nextLine();
+                    sc.nextLine();
+                    System.out.println("Introduce edad");
+                    int edad = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Fecha de nacimiento");
+                    System.out.println("Introduce dia");
+                    int dia = sc.nextInt();
+                    System.out.println("Introduce mes en numero");
+                    int mes = sc.nextInt();
+                    System.out.println("introduce años");
+                    int ano = sc.nextInt();
+                    sc.nextLine();
+                    LocalDate fecha = LocalDate.of(ano, mes, dia);
+                    System.out.println("Ciudad");
+                    String ciudad = sc.nextLine();
+                    System.out.println("Profesion");
+                    String profesion = sc.nextLine();
+                    CuentaBanco c1 = new CuentaCorriente(cuentas.size() + 1,
+                            new ClienteBanco(nombre, apellidos, dni, edad, fecha, ciudad, profesion));
+                    cuentas.add(c1);
+
+                } catch (InputMismatchException e) {
+                    System.out.println("Has metido un valor mal ");
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+                break;
+            case 2:
+                System.out.println("Vamos a crear una cuenta corriente");
+                try {
+                    System.out.println("Introduce nombre");
+                    String nombre = sc.nextLine();
+                    System.out.println("Introduce apellidos");
+                    String apellidos = sc.nextLine();
+                    System.out.println("Introduce dni");
+                    String dni = sc.nextLine();
+                    sc.nextLine();
+                    System.out.println("Introduce edad");
+                    int edad = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Fecha de nacimiento");
+                    System.out.println("Introduce dia");
+                    int dia = sc.nextInt();
+                    System.out.println("Introduce mes en numero");
+                    int mes = sc.nextInt();
+                    System.out.println("introduce años");
+                    int ano = sc.nextInt();
+                    sc.nextLine();
+                    LocalDate fecha = LocalDate.of(ano, mes, dia);
+                    System.out.println("Ciudad");
+                    String ciudad = sc.nextLine();
+                    System.out.println("Profesion");
+                    String profesion = sc.nextLine();
+                    CuentaBanco c1 = new CuentaVivienda(cuentas.size() + 1,
+                            new ClienteBanco(nombre, apellidos, dni, edad, fecha, ciudad, profesion));
+                    cuentas.add(c1);
+
+                } catch (InputMismatchException e) {
+                    System.out.println("Has metido un valor mal ");
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+
+            case 3:
+                System.out.println("Vamos a crear una cuenta corriente");
+                try {
+                    System.out.println("Introduce nombre");
+                    String nombre = sc.nextLine();
+                    System.out.println("Introduce apellidos");
+                    String apellidos = sc.nextLine();
+                    System.out.println("Introduce dni");
+                    String dni = sc.nextLine();
+                    sc.nextLine();
+                    System.out.println("Introduce edad");
+                    int edad = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Fecha de nacimiento");
+                    System.out.println("Introduce dia");
+                    int dia = sc.nextInt();
+                    System.out.println("Introduce mes en numero");
+                    int mes = sc.nextInt();
+                    System.out.println("introduce años");
+                    int ano = sc.nextInt();
+                    sc.nextLine();
+                    LocalDate fecha = LocalDate.of(ano, mes, dia);
+                    System.out.println("Ciudad");
+                    String ciudad = sc.nextLine();
+                    System.out.println("Profesion");
+                    String profesion = sc.nextLine();
+                    CuentaBanco c1 = new FondoInversion(cuentas.size() + 1,
+                            new ClienteBanco(nombre, apellidos, dni, edad, fecha, ciudad, profesion));
+                    cuentas.add(c1);
+
+                } catch (InputMismatchException e) {
+                    System.out.println("Has metido un valor mal ");
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                break;
+            case 4:
+                crearCliente();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+}
