@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AppSucursal {
-       static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
     static List<CuentaBanco> cuentas = new ArrayList<CuentaBanco>();
     static List<ClienteBanco> clientes = new ArrayList<ClienteBanco>();
 
@@ -42,7 +42,7 @@ public class AppSucursal {
          * System.out.println(c2.saldo);
          * System.out.println(c2.movimientos);
          */
-        MenuCrear();
+       menu();
         System.out.println("************************************");
         System.out.println(cuentas.size());
         for (CuentaBanco c1 : cuentas) {
@@ -59,7 +59,7 @@ public class AppSucursal {
         int opcion = 0;
         switch (opcion) {
             case 1:
-
+                crearCliente();
                 break;
             case 2:
                 MenuCrear();
