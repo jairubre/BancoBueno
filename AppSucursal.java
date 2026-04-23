@@ -42,31 +42,12 @@ public class AppSucursal {
          * System.out.println(c2.saldo);
          * System.out.println(c2.movimientos);
          */
-       menu();
+        MenuCrear();
         System.out.println("************************************");
         System.out.println(cuentas.size());
-        for (ClienteBanco c1 : clientes) {
+        for (CuentaBanco c1 : cuentas) {
             System.out.println("hola");
             System.out.println(c1.toString());
-        }
-
-    }
-
-    public static void menu() {
-        System.out.println("Introduce una opcion");
-        System.out.println("Crear cliente");
-        System.out.println("Crear suscursal");
-        int opcion = sc.nextInt();
-        switch (opcion) {
-            case 1:
-                crearCliente();
-                break;
-            case 2:
-                MenuCrear();
-                break;
-
-            default:
-                break;
         }
 
     }
@@ -148,32 +129,16 @@ public class AppSucursal {
             case 1:
                 System.out.println("Vamos a crear una cuenta corriente");
                 try {
-                    System.out.println("Introduce nombre");
-                    String nombre = sc.nextLine();
-                    System.out.println("Introduce apellidos");
-                    String apellidos = sc.nextLine();
                     System.out.println("Introduce dni");
                     String dni = sc.nextLine();
-                    sc.nextLine();
-                    System.out.println("Introduce edad");
-                    int edad = sc.nextInt();
-                    sc.nextLine();
-                    System.out.println("Fecha de nacimiento");
-                    System.out.println("Introduce dia");
-                    int dia = sc.nextInt();
-                    System.out.println("Introduce mes en numero");
-                    int mes = sc.nextInt();
-                    System.out.println("introduce años");
-                    int ano = sc.nextInt();
-                    sc.nextLine();
-                    LocalDate fecha = LocalDate.of(ano, mes, dia);
-                    System.out.println("Ciudad");
-                    String ciudad = sc.nextLine();
-                    System.out.println("Profesion");
-                    String profesion = sc.nextLine();
-                    CuentaBanco c1 = new CuentaCorriente(cuentas.size() + 1,
-                            new ClienteBanco(nombre, apellidos, dni, edad, fecha, ciudad, profesion));
-                    cuentas.add(c1);
+                    if (clienteExiste(dni)!=null) {
+                        CuentaBanco c1 = new CuentaCorriente(cuentas.size() + 1,clienteExiste(dni));
+                        cuentas.add(c1);
+                    }else{
+                        System.out.println("El cliente no existe en nuestra base de datos");
+                    }
+                    
+                            
 
                 } catch (InputMismatchException e) {
                     System.out.println("Has metido un valor mal ");
@@ -262,6 +227,15 @@ public class AppSucursal {
             default:
                 break;
         }
+    }
+
+    public static ClienteBanco clienteExiste(String dni) {
+        for (ClienteBanco clienteBanco : clientes) {
+            if (clienteBanco.getDni().equals(dni)) {
+                return clienteBanco;
+            }
+        }
+        return null;
     }
 
 }
