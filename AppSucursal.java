@@ -45,7 +45,7 @@ public class AppSucursal {
        menu();
         System.out.println("************************************");
         System.out.println(cuentas.size());
-        for (CuentaBanco c1 : cuentas) {
+        for (ClienteBanco c1 : clientes) {
             System.out.println("hola");
             System.out.println(c1.toString());
         }
@@ -56,7 +56,7 @@ public class AppSucursal {
         System.out.println("Introduce una opcion");
         System.out.println("Crear cliente");
         System.out.println("Crear suscursal");
-        int opcion = 0;
+        int opcion = sc.nextInt();
         switch (opcion) {
             case 1:
                 crearCliente();
